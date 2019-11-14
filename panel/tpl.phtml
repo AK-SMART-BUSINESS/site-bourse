@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Panel Admin</title>
+    <base href="<?= URL; ?>">
+    <link rel="stylesheet" href="../f/ui/css/uikit.min.css">
+
+    <script src="../js/jquery-3.3.1.min.js"></script>
+    <script src="../f/ui/js/uikit.min.js" charset="utf-8"></script>
+    <script src="../f/ui/js/uikit-icons.min.js" charset="utf-8"></script>
+
+    <script src="../f/ckeditor/ckeditor.js" charset="utf-8"></script>
+    <!--script src="//cdn.ckeditor.com/4.11.3/standard/ckeditor.js"></script-->
+    <style>
+        nav a{
+            color: #eeeeee;
+        }
+        nav li a:hover{
+            color: #ffff;
+        }
+    </style>
+</head>
+<body>
+    <div id="">
+        <nav class="uk-navbar-container uk-navbar-transparent uk-background-secondary" uk-navbar>
+            <div class="uk-navbar-left">
+                <ul class="uk-navbar-nav">
+                    <li><a href="<?= URL.'dash'; ?>" class="">Tableau de bord</a></li>
+                    <li><a href="<?= URL.'page_articles'; ?>" class="">Articles de page</a></li>
+                    <li><a href="<?= URL.'articles'; ?>" class="">Articles</a></li>
+                    <li><a href="<?= URL.'flash_info'; ?>" class="">Flash info</a></li>
+                </ul>
+            </div>
+            <!--div class="uk-navbar-center">
+                <p>
+                    <span class="uk-text-muted">Utilisateur:</span>
+                    <b class="uk-text-primary">User</b>
+                    <span class="uk-text-danger">[Administrateur]</span>
+                </p>
+            </div-->
+            <div class="uk-navbar-right">
+                <ul class="uk-navbar-nav">
+                    <li><a href="<?= URL.'account'; ?>" class="">Compte</a></li>
+                    <li><a href="<?= URL.'signout'; ?>" class="">Déconnexion</a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <div>
+        <?= $output; ?>
+    </div>
+</body>
+</html>
+

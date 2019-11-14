@@ -1,0 +1,17 @@
+<section class="uk-box-shadow-small">
+<?php if($article): ?>
+    <div class="uk-padding-small">
+        <article class="uk-article">
+
+            <h1 class="uk-article-title uk-text-warning uk-heading-divider">
+                <?= $article->titre;?>
+            </h1>
+
+            <p class="uk-article-meta">Date d'ajout: <i><?= $article->dateEdition;?></i></p>
+
+            <!--p class="uk-text-lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.</p-->
+
+            <p><?= $article->contenu;?></p>
+    </div>
+<?php endif; ?>
+</section>

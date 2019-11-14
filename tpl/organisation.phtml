@@ -1,0 +1,16 @@
+<?php
+$mngPage = new \Libs\panel\MngPageArticle();
+$page = $mngPage->getPargeArticleByPage("organisation");
+?>
+<section class="uk-box-shadow-small">
+    <h1 class="uk-heading-bullet">Organisation</h1>
+    <div class="uk-padding-small">
+        <?php if ($page && $page->etat=='publié'): ?>
+            <?= $page->contenu; ?>
+        <?php else: ?>
+            <p class="uk-alert uk-alert-warning" uk-alert>
+                Page en cours de construction
+            </p>
+        <?php endif; ?>
+    </div>
+</section>

@@ -1,0 +1,30 @@
+<section class="uk-box-shadow-small">
+    <h1 class="uk-heading-bullet">Toutes les actualités</h1>
+    <?php if ($articles): ?>
+            <?php foreach ($articles as $article): ?>
+            <div class="uk-padding-small">
+            <article class="uk-article">
+
+                <h1 class="uk-article-title uk-text-warning uk-heading-line uk-padding-remove-top" style="line-height: 10px !important;">
+                    <a href="<?= URL.'article/'.$article->idarticles;?>" class="a-link" style="font-size: 1.4rem;line-height: normal !important;"><?= $article->titre;?></a>
+                </h1>
+
+                <p class="uk-article-meta">Date d'ajout: <i><?= $article->dateEdition;?></i></p>
+
+                <!--p class="uk-text-lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.</p-->
+
+                <p><?= substr($article->contenu, 0, 200);?></p>
+
+                <div class="uk-grid-small uk-child-width-auto" uk-grid>
+                    <div>
+                        <a class="uk-button uk-button-text" href="<?= URL.'article/'.$article->idarticles;?>" style="color: teal">Lire la suite</a>
+                    </div>
+                </div>
+            </div><hr class="uk-divider">
+            <?php endforeach; ?>
+    <?php else: ?>
+        <p class="uk-alert uk-alert-warning" uk-alert>
+            Pas d'actualité disponible
+        </p>
+    <?php endif; ?>
+</section>

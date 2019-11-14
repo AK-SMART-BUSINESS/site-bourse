@@ -1,0 +1,35 @@
+<?php
+$mngArticle = new \Libs\panel\MngArticles();
+$front_artices = $mngArticle->getLatestArticles(5);
+?>
+<section class="uk-box-shadow-small">
+    <h1 class="uk-heading-divider uk-label" style="background: darkgreen !important;">Les dernières actualités</h1>
+<?php if ($front_artices): ?>
+        <?php foreach ($front_artices as $artice): ?>
+    <div class="uk-padding-small">
+            <article class="uk-article">
+
+                <h1 class="uk-article-title uk-text-warning uk-heading-bullet uk-padding-remove-top" style="line-height: 10px !important;">
+                    <a href="<?= URL.'article/'.$artice->idarticles;?>" class="a-link" style="font-size: 1.4rem;line-height: normal !important;"><?= $artice->titre;?></a>
+                </h1>
+
+                <p class="uk-article-meta">Date d'ajout: <i><?= $artice->dateEdition;?></i></p>
+
+                <!--p class="uk-text-lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.</p-->
+
+                <p><?= substr($artice->contenu, 0, 200);?></p>
+
+                <div class="uk-grid-small uk-child-width-auto" uk-grid>
+                    <div>
+                        <a class="uk-button uk-button-text" href="<?= URL.'article/'.$artice->idarticles;?>" style="color: teal">Lire la suite</a>
+                    </div>
+                </div>
+            </article>
+    </div><hr class="uk-divider-icon">
+        <?php endforeach; ?>
+<?php else: ?>
+    <p class="uk-alert uk-alert-warning" uk-alert>
+            Page en cours de construction
+    </p>
+    <p><?= $mngArticle->getMsgErr(); ?></p>
+<?php endif; ?>

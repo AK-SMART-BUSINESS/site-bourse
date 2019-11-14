@@ -1,0 +1,12 @@
+<section class="uk-box-shadow-small">
+    <h1 class="uk-heading-bullet">Condition d'éligibilité bourse Côte d'Ivoire</h1>
+    <div class="uk-padding-small">
+        <?php if ($page && $page->etat=='publié'): ?>
+            <?= $page->contenu; ?>
+        <?php else: ?>
+            <p class="uk-alert uk-alert-warning" uk-alert>
+                Page en cours de construction
+            </p>
+        <?php endif; ?>
+    </div>
+</section>

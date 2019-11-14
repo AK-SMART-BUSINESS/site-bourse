@@ -1,0 +1,141 @@
+<?php
+$mngPage = new \Libs\panel\MngPageArticle();
+if (count($this->getParams()) == 1){
+    $id_article = (int) $this->getParams()[1];
+    if ($id_article > 0){
+        $article = $mngPage->getPargeArticleById($id_article);
+    }
+}
+$error = [];
+if (isset($_POST) && !empty($_POST)){
+    $contenu = $_POST["contenu"];
+    $etat = $_POST["etat"];
+    //$page = $_POST["page"];
+    if ($contenu == ""){
+        array_push($error, "Veuillez saisir le contenu de la page");
+    }
+    /*if ($page == ""){
+        array_push($error, "Veuillez sélectionner la page");
+    }*/
+
+
+    if (empty($error)){
+        //$page_data = new \Libs\panel\PageArticle($page, $contenu, $etat);
+        if ($mngPage->editPageArticle($contenu, $etat, $id_article)){
+            ?>
+            <script>
+                $(function () {
+                    $("#frmEditPageArticle").hide()();
+                });
+                UIkit.notification({
+                    message: '<b>Succès !</b> La page a été modifiée',
+                    status: 'primary',
+                    pos: 'top-right',
+                    timeout: 3000
+                });
+                window.setTimeout(function () {
+                    window.location.href = 'page_articles';
+                    //$("#toBack").click();
+                }, 3000);
+
+            </script>
+            <?php
+        }
+    }
+
+}
+?>
+<h1 class="uk-text-danger">Mes articles de page</h1>
+<?php if (isset($article) && $article): ?>
+<div>
+    <div class="uk-card uk-card-default">
+        <div class="uk-card-header">
+            <h3 class="uk-card-title">Modification article de page</h3>
+        </div>
+        <?php if (!empty($error)): ?>
+            <div class="uk-alert uk-alert-warning uk-padding-small uk-margin-medium-left uk-margin-medium-right" uk-alert>
+                <h4 class="uk-margin-remove-bottom">Echèc de validation</h4>
+                <hr class="uk-margin-remove">
+                <ul>
+                    <?php for ($i = 0; $i < count($error); $i++): ?>
+                        <li><?= $error[$i]; ?></li>
+                    <?php endfor; ?>
+                </ul>
+            </div>
+        <?php endif; ?>
+        <div class="uk-card-body">
+            <form action="" method="post" id="frmEditPageArticle">
+                <div>
+                    <div class="uk-grid uk-grid-small uk-child-width-expand\@s" uk-grid>
+                        <div class="uk-width-1-3">
+                            <div class="">
+                                <label for="page" class="uk-form-label">Page*</label>
+                                <select name="page" id="page" class="uk-select uk-form-controls" disabled>
+                                    <option value="">---------------</option>
+                                    <option value="motdudirecteur" <?= $article->page == 'motdudirecteur' ? 'selected' : ''; ?>>Mot du directeur</option>
+                                    <option value="historique" <?= $article->page == 'historique' ? 'selected' : ''; ?>>Historique</option>
+                                    <option value="presentation" <?= $article->page == 'presentation' ? 'selected' : ''; ?>>Présentation</option>
+                                    <option value="organisation" <?= $article->page == 'organisation' ? 'selected' : ''; ?>>Organisation</option>
+                                    <option value="mission" <?= $article->page == 'mission' ? 'selected' : ''; ?>>Mission</option>
+                                    <option value="annuaire" <?= $article->page == 'annuaire' ? 'selected' : ''; ?>>Annuaire</option>
+                                    <option value="partenaire" <?= $article->page == 'partenaire' ? 'selected' : ''; ?>>Partenaire</option>
+                                    <option value="organigramme" <?= $article->page == 'organigramme' ? 'selected' : ''; ?>>Organigramme</option>
+                                    <option value="communiques" <?= $article->page == 'communiques' ? 'selected' : ''; ?>>Communiqué</option>
+                                    <option value="documentation" <?= $article->page == 'documentation' ? 'selected' : ''; ?>>Documentation</option>
+                                    <option value="informations" <?= $article->page == 'informations' ? 'selected' : ''; ?>>Informations Utiles</option>
+                                    <option value="faq" <?= $article->page == 'faq' ? 'selected' : ''; ?>>faq</option>
+                                    <option value="lien_utile" <?= $article->page == 'lien_utile' ? 'selected' : ''; ?>>Lien Utile</option>
+                                    <option value="guide_etudiant_boursier" <?= $article->page == 'guide_etudiant_boursier' ? 'selected' : ''; ?>>Guide de l'étudiant boursier</option>
+                                    <option value="ci_appel_candidature" <?= $article->page == 'ci_appel_candidature' ? 'selected' : ''; ?>>Appel à candidature bourse Côte d'Ivoire</option>
+                                    <option value="ci_condition_eligibilite" <?= $article->page == 'ci_condition_eligibilite' ? 'selected' : ''; ?>>Condition d'éligibilité bourse Côte d'Ivoire </option>
+                                    <option value="et_appel_candidature" <?= $article->page == 'et_appel_candidature' ? 'selected' : ''; ?>>Appel à candidature bourse hors Côte d'Ivoire</option>
+                                    <option value="et_condition_eligibilite" <?= $article->page == 'et_condition_eligibilite' ? 'selected' : ''; ?>>Condition d'éligibilité bourse hors Côte d'Ivoire </option>
+                                    <option value="droit_et_recours" <?= $article->page == 'organigramme' ? 'droit_et_recours' : ''; ?>>Droit et recours</option>
+
+                                </select>
+                            </div>
+                        </div>
+                        <div class="uk-width-1-3">
+                            <div class="">
+                                <label for="etat" class="uk-form-label">Publication</label>
+                                <select name="etat" id="etat" class="uk-select uk-form-controls">
+                                    <option value="publié" <?= $article->etat == 'publié' ? 'selected' : ''; ?>>Publié</option>
+                                    <option value="non publié" <?= $article->etat == 'non publié' ? 'selected' : ''; ?>>Non publié</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="uk-width-1-3 uk-text-right">
+                            <br>
+                            <a href="<?= URL.'page_articles'; ?>" id="toBack" class="uk-button uk-button-danger uk-button-small">Retour</a>
+                        </div>
+                        <div class="uk-width-1-1">
+                            <textarea name="contenu" id="contenu" rows="20" class="uk-textarea">
+                                <?= $article->contenu; ?>
+                            </textarea>
+                        </div>
+                    </div>
+                </div>
+                <input type="hidden" name="article" id="article" value="<?= $article->idarticle_pages; ?>">
+                <div class="uk-margin-top uk-text-right">
+                    <button class="uk-button uk-button-primary uk-button-small" type="submit">Modifier</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Replace the <textarea id="editor1"> with a CKEditor
+    // instance, using default configuration.
+    CKEDITOR.replace( 'contenu' );
+</script>
+
+<!--script src="js/page-article.js"></script-->
+<?php else: ?>
+    <div class="uk-alert uk-alert-danger" uk-alert>
+        <h1>Erreur ! ------------------------------------------------------------------------------></h1>
+        <p class="uk-text-muted uk-text-large">
+            Impossible d'afficher cette page
+        </p>
+    </div>
+<?php endif; ?>

@@ -1,0 +1,4 @@
+<?php
+\App\Session::killSession("uid");
+session_destroy();
+header('location: '.URL);
